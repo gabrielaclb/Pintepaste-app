@@ -55,4 +55,12 @@ public class DBAccess {
 		}
 		return this.res;
 	}
+	
+	public void close() {
+		try {
+			this.con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
