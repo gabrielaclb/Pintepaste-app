@@ -21,6 +21,14 @@ public class DBAccess {
 		}
 	}
 	
+	public static DBAccess getConnection(PropertiesReader pReader) {
+		String driver = pReader.getValue("dbDriver");
+		String url = pReader.getValue("dbUrl");
+		String usr = pReader.getValue("dbUser");
+		String pwd = pReader.getValue("dbPassword");
+		return new DBAccess(driver, url, usr, pwd);
+	}
+	
 	public ResultSet execute(String query, Object... values) throws SQLException {
 		try {
 			this.pstm = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
