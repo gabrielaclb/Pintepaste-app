@@ -1,11 +1,16 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import facade.UserFacade;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -26,8 +31,17 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		UserFacade userFacade = new UserFacade();
+		PrintWriter out = response.getWriter();
+		
+		try {
+			out.print(userFacade.insertUser(request));
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
