@@ -1,6 +1,6 @@
 package models;
 
-public class UserModel {
+public class UserModel extends ModelClass {
 	private String name, username, email, password;
 	
 	public String getName() {
