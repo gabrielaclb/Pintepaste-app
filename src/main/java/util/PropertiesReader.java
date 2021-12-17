@@ -1,6 +1,5 @@
 package util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -12,9 +11,8 @@ public class PropertiesReader {
 	
 	private PropertiesReader() {
 		try {
-			input = new FileInputStream("/pintepaste-app/src/resources/connection.properties");
+			input = getClass().getClassLoader().getResourceAsStream("connection.properties");
 			props.load(input);
-			props.list(System.out);
 		} catch(IOException e) {
 			e.printStackTrace();
 		} finally {
