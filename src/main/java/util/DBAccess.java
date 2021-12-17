@@ -16,6 +16,7 @@ public class DBAccess {
 	
 	public DBAccess(String driver, String url, String usr, String pwd) {
 		try {
+			System.out.println(url);
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, usr, pwd);
 		} catch(ClassNotFoundException | SQLException e) {

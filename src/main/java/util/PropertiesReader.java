@@ -14,6 +14,7 @@ public class PropertiesReader {
 		try {
 			input = new FileInputStream("/pintepaste-app/src/resources/connection.properties");
 			props.load(input);
+			props.list(System.out);
 		} catch(IOException e) {
 			e.printStackTrace();
 		} finally {
