@@ -31,14 +31,14 @@ public class UserFacade {
 		modelCache = ModelCache.getInstance();
 	}
 	
-	private boolean isValidated(String username, String password, String email) {
+	private boolean isValidated(String name, String password, String email) {
 		pReader = PropertiesReader.getInstance();
 		validator = new Validator();
 		
-		if(validator.whitespaceValidated(username, password, email) && validator.emailContainsDomans(pReader.getValue("ER"), email)
-				&& !validator.hasSpecialCharacter(pReader.getValue("UR"), username)
+		if(validator.whitespaceValidated(name, password, email) && validator.emailContainsDomans(pReader.getValue("ER"), email)
+				&& !validator.hasSpecialCharacter(pReader.getValue("UR"), name)
 				&& !validator.hasSpecialCharacter(pReader.getValue("PR"), password)
-				&& validator.lengthValidated(username, password, 20)) {
+				&& validator.lengthValidated(name, password, 20)) {
 			return true;
 		}
 		return false;
@@ -52,11 +52,11 @@ public class UserFacade {
 		
 		try {
 			UserModel user = jackson.jsonToPojo(request, UserModel.class);
-			if(isValidated(user.getUserName(), user.getPassword(), user.getEmail())) {
-				rs = db.execute(pReader.getValue("SELECT_USER"), user.getUserName(), user.getEmail());
+			if(isValidated(user.getName(), user.getPassword(), user.getEmail())) {
+				rs = db.execute(pReader.getValue("SELECT_USER"), user.getName(), user.getEmail());
 				
 				if(!rs.next()) {
-					db.update(pReader.getValue("INSERT_USER"), user.getName().toLowerCase(), Encrypter.getSecurePassword(user.getPassword() + salt), user.getName(), user.getEmail(), db.currentTimestamp(), salt);
+					db.update(pReader.getValue("INSERT_USER"), user.getName(), Encrypter.getSecurePassword(user.getPassword() + salt), user.getEmail(), salt);
 					res.setStatus(200);
 				} else {
 					res.setStatus(500);

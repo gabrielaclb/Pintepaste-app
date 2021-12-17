@@ -1,7 +1,7 @@
 package models;
 
 public class UserModel extends ModelClass {
-	private String name, username, email, password;
+	private String name, email, password;
 	
 	public String getName() {
 		return name;
@@ -9,14 +9,6 @@ public class UserModel extends ModelClass {
 	
 	public void setName(String name) {
 		this.name = name;
-	}
-	
-	public String getUserName() {
-		return username;
-	}
-	
-	public void setUserName(String username) {
-		this.username = username;
 	}
 	
 	public String getEmail() {
